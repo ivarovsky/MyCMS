@@ -184,3 +184,90 @@ You **do not** need to manually include or require them anywhere.
 
 > The CMS automatically scans and initializes every `*.route.php` file
 > inside the `routes` directory during system startup.
+>
+> # MyCMS Core Class: obj
+
+This guide explains how to use the `obj` class in MyCMS to call Views, load Routes, and use the Controller.
+
+---
+
+## 1. Rendering a View
+
+### Basic View
+
+```php
+obj::View('example');
+```
+
+* Loads `/views/example.view.php`
+* Instantiates `exampleView`
+* Calls `main()` method
+
+### Passing Data
+
+```php
+obj::View('example', ['title' => 'Hello World']);
+```
+
+* Inside your View:
+
+```php
+public function main($data) {
+    echo $data['title'];
+}
+```
+
+### Calling Specific Function
+
+```php
+obj::View('example@customMethod');
+```
+
+* Calls `customMethod()` inside `exampleView`
+
+### Using Subfolders
+
+```php
+obj::View('parts/:header');
+```
+
+* Loads `/views/parts/header.view.php`
+
+### Subfolder + Function
+
+```php
+obj::View('parts/:header@main');
+```
+
+* Loads `/views/parts/header.view.php` and calls `main()`
+
+---
+
+## 2. Loading Routes
+
+### Load All Routes
+
+```php
+obj::loadRoute('all');
+```
+
+* Loads all files inside `/routes`
+
+### Load Specific Route
+
+```php
+obj::loadRoute('web');
+```
+
+* Loads `/routes/web.route.php`
+
+---
+
+## 3. Controller (Future Use)
+
+```php
+obj::Controller($data);
+```
+
+* Intended to connect Models and Views
+
